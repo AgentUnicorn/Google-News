@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+</head>
+<body>
+
+    <header class="header d-flex align-items-center justify-content-center text-dark px-2">
+        <div class="row container-fluid d-flex align-items-center">
+            <div class="col-sm col-md-1"></div>
+            <div class="col-4">
+                <!-- <img src="logo.jpeg"> -->
+                <h1 class="p-0 m-0 h2 text-bold">CODERS SCHOOL TIMES!!</h1>
+            </div>
+            <div class="col-1 col-md-3"></div>
+            <div class="col-6 col-md-3 mr-md-5 d-flex align-items-center">
+                <input type="text" class="form-control rounded-left" id="inputSearch" placeholder="Search for topics">
+                <div class="input-group-append rounded-right">
+                    <button id="searchBtn" onclick="addSearch()" class="btn btn-secondary rounded-right"><i class="fas fa-search"></i></button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="row">
+            <div class="col-2">
+                <div>
+                    <h5>Categories</h5>
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Dropdown
+                        </button>
+                        <div id="categoryDropdown" class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                        <button onclick="sortCate()" class="dropdown-item" type="button"></button>
+                    </div>
+                    </div>
+                </div>
+
+                <div id="sortResult" class="sort">
+                    <span>Result Here</span>
+
+                </div>
+            </div>
+            <div class="col-10" id="newsArea">
+                <div class="card mb-3" id="news" style="max-width: 540px;">
+                    <div class="row no-gutters">
+                      <div class="col-md-4">
+                        <img src="..." class="card-img" alt="...">
+                      </div>
+                      <div class="col-md-8">
+                        <div class="card-body">
+                          <h5 class="card-title">Card title</h5>
+                          <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                          <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                          <p class="card-text"><small class="text-muted">Source</small></p>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <button onclick="loadMore()">Load More</button>
+            <button>Back to top</button>
+        </div>
+    </main>
+
+
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <script src="main.js"></script>
+</body>
+</html>
