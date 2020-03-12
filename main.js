@@ -3,9 +3,12 @@
 let newsArea = document.getElementById('newsArea');
 let searchBtn = document.getElementById('searchBtn');
 let inputSearch = document.getElementById('inputSearch');
-let sortResult = document.getElementById('sortResult');
+let sourceArea = document.getElementById('sourceArea');
 let categoryDropdown = document.getElementById('categoryDropdown')
 let categories = ['All', 'Business', 'Entertainment', 'General', 'Health', 'Science','Sports', 'Technology'];
+let searchItem
+let newsList = []
+
 
 inputSearch.addEventListener("keydown", function(e) {
     if (e.keyCode === 13) {
@@ -13,7 +16,6 @@ inputSearch.addEventListener("keydown", function(e) {
     }
   });
 
-let newsList = []
 let callAPI = async(inputSearch) => {
     let apiKey = '2f242f39120d4a52a5bdbd62340c9fa6'
     let url =`https://newsapi.org/v2/everything?q=${inputSearch}&page=${pageLoad}&apiKey=${apiKey}`
@@ -25,6 +27,8 @@ let callAPI = async(inputSearch) => {
 
     console.log("data",data)
     console.log("jason", result);
+
+    searchBySource();
 
     render(newsList);
 }
@@ -53,8 +57,6 @@ let render=(array)=>{
     document.getElementById('newsArea').innerHTML= htmlForNews  
 }
 
-
-let searchItem
 let addSearch = (value) => {
     searchItem = inputSearch.value;
     console.log("Hello",searchItem)
@@ -65,6 +67,7 @@ let addSearch = (value) => {
 pageLoad = 1;
 callAPI("Google");
 
+// Load more news function
 
 let loadMore = async () => {
     pageLoad++;
@@ -79,19 +82,18 @@ let loadMore = async () => {
     render(newsList);
 }
 
+// Sort by Categories
+
 let fetchNews = async (category) => {
     let apiKey = '2f242f39120d4a52a5bdbd62340c9fa6'
-    let url = `https://newsapi.org/v2/top-headlines?q=korea&apiKey=${apiKey}`
-    console.log("Hello",url)
+    let url = `https://newsapi.org/v2/top-headlines?q=${searchItem}&category=${category}&apiKey=${apiKey}`
 
     let data = await fetch(url);
     let result = await data.json();
-    console.log("Hi", result)
 
-    newsList = newsList.concat(result.articles);
+    newsList = result.articles;
 
     render(newsList);
-    console.log("adads", newsList)
 }
 
 let generateCate = (categories) => {
@@ -104,17 +106,48 @@ let generateCate = (categories) => {
 }
 
 let sortCate = (cat) => {
-  console.log("123", cat);
   fetchNews(cat.toLowerCase());
 }
 
 generateCate(categories);
-// let sortName = (resultList) => {
-//     let count =0;
-//     resultList = []
-//     resultList = newsList.map((nameFilter) => nameFilter.source.name) 
-//     console.log("Count",resultList)
 
-//     document.getElementById('sortResult').innerHTML=count;
-//     document.getElementById('sortResult').innerHTML=resultList;
-// }
+let searchByCategory = async () => {
+  let category = document.getElementById("category").value;
+  let url = `http://newsapi.org/v2/top-headlines?category=${category}&apiKey=${apiKey}`;
+  let data = await fetch(url);
+  let result = await data.json();
+
+  newsList = result.articles;
+  render(newsList);
+};
+
+let searchBySource = () => {
+  let sourceNames = newsList.map((item) => item.source.name);
+
+  let sourceObject = sourceNames.reduce((total, name) => {
+    console.log("total:", total);
+    if (name in total) {
+      total[name]++;
+    } else {
+      total[name] = 1;
+    }
+    return total;
+  }, {});
+
+  let sourceArray = Object.keys(sourceObject);
+
+  let htmlForSource = sourceArray.map((item) =>
+      `<input onchange='sourceClicked("${item}")' type="checkbox" id="${item}"/> ${item} (${sourceObject[item]})`
+  );
+
+  document.getElementById("sourceArea").innerHTML = htmlForSource;
+};
+
+let sourceClicked = (index) => {
+  if (document.getElementById(index).checked == true) {
+    let filterNews = newsList.filter((item) => item.source.name === index)
+    render(filterNews);
+  } else {
+    render(newsList);
+  }
+}
