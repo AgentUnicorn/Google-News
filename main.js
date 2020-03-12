@@ -16,7 +16,7 @@ inputSearch.addEventListener("keydown", function(e) {
 let newsList = []
 let callAPI = async(inputSearch) => {
     let apiKey = '2f242f39120d4a52a5bdbd62340c9fa6'
-    let url =`http://newsapi.org/v2/everything?q=${inputSearch}&page=${pageLoad}&apiKey=${apiKey}`
+    let url =`https://newsapi.org/v2/everything?q=${inputSearch}&page=${pageLoad}&apiKey=${apiKey}`
 
     let data = await fetch(url);
     let result = await data.json();
@@ -69,7 +69,7 @@ callAPI("Google");
 let loadMore = async () => {
     pageLoad++;
     let apiKey = '2f242f39120d4a52a5bdbd62340c9fa6'
-    let url =`http://newsapi.org/v2/everything?q=${searchItem}&page=${pageLoad}&apiKey=${apiKey}`
+    let url =`https://newsapi.org/v2/everything?q=${searchItem}&page=${pageLoad}&apiKey=${apiKey}`
 
     let data = await fetch(url);
     let result = await data.json();
@@ -81,7 +81,7 @@ let loadMore = async () => {
 
 let fetchNews = async (category) => {
     let apiKey = '2f242f39120d4a52a5bdbd62340c9fa6'
-    let url = `http://newsapi.org/v2/top-headlines?q=korea&apiKey=${apiKey}`
+    let url = `https://newsapi.org/v2/top-headlines?q=korea&apiKey=${apiKey}`
     console.log("Hello",url)
 
     let data = await fetch(url);
